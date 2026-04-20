@@ -3,14 +3,13 @@
 # ─────────────────────────────────────────
 import os, json, uuid
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
 
 NEWS_API_KEY   = os.getenv("NEWS_API_KEY", "YOUR_API_KEY_HERE")
 NEWS_API_BASE  = "https://newsapi.org/v2"
