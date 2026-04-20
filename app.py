@@ -5,7 +5,7 @@ import hashlib
 from datetime import datetime
 from threading import Lock
 
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
@@ -19,12 +19,19 @@ NEWS_API_BASE = "https://newsapi.org/v2"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BOOKMARKS_FILE = os.path.join(BASE_DIR, "bookmarks.json")
 
-# Thread safety
 lock = Lock()
 
 # ── App Setup ──────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 CORS(app)
+
+# ── Root Route (FIXED for Render health check) ─────────────────────────────────
+@app.route("/", methods=["GET", "HEAD"])
+def index():
+    return jsonify({
+        "status": "ok",
+        "message": "Glimpse API is running"
+    })
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -91,22 +98,12 @@ def _newsapi_get(endpoint, params):
             timeout=10
         )
         resp.raise_for_status()
-
-        try:
-            return resp.json()
-        except ValueError:
-            return None
-
-    except requests.RequestException:
+        return resp.json()
+    except Exception:
         return None
 
 
 # ── Routes ─────────────────────────────────────────────────────────────────────
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
 
 @app.route("/api/news")
 def get_news():
@@ -271,5 +268,4 @@ if not os.path.exists(BOOKMARKS_FILE):
     with open(BOOKMARKS_FILE, "w") as f:
         json.dump([], f)
 
-
-# IMPORTANT: No app.run() for production (Gunicorn will run this)
+# No app.run() → required for Gunicorn
