@@ -53,11 +53,10 @@ def fmt(article, idx=0):
 
 # ── Routes ───────────────────────────────
 
-@app.route("/")
+@app.route("/", methods=["GET", "HEAD"])
 def index():
     """Serve the Glimpse-web single-page app."""
     return render_template("index.html")
-
 # GET /api/news?category=tech&page=1
 @app.route("/api/news")
 def get_news():
