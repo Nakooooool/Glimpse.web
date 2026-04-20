@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Glimpse-web — Your daily news at a glance. Top stories across Tech, Sports, Business, Health and Entertainment."/>
+  <title>Glimpse-web | News at a Glance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-mark">◈</span>
+        <span class="logo-word">Glimpse</span><span class="logo-dash">-web</span>
+      </div>
+      <div class="nav-right">
+        <!-- Animated search -->
+        <div class="search-wrap">
+          <button class="search-toggle" id="searchToggle" aria-label="Open search">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <input class="search-input" id="searchInput" type="text" placeholder="Search stories…" autocomplete="off" aria-label="Search news"/>
+        </div>
+        <!-- Dark / light toggle -->
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+          <span id="themeIcon">☀</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Category tabs ── -->
+  <nav class="tabs-bar" aria-label="News categories">
+    <div class="tabs-inner" id="tabs">
+      <button class="tab active" data-cat="general">Top</button>
+      <button class="tab" data-cat="tech">Tech</button>
+      <button class="tab" data-cat="sports">Sports</button>
+      <button class="tab" data-cat="business">Business</button>
+      <button class="tab" data-cat="health">Health</button>
+      <button class="tab" data-cat="entertainment">Entertainment</button>
+      <button class="tab" data-cat="saved">Saved</button>
+      <!-- Sliding underline -->
+      <span class="tab-ink" id="tabInk"></span>
+    </div>
+  </nav>
+
+  <!-- ── Cards grid ── -->
+  <main class="main" id="main">
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <span class="empty-icon">◈</span>
+      <p>No stories found</p>
+    </div>
+  </main>
+
+  <!-- ── Scroll-to-top ── -->
+  <button class="go-top" id="goTop" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ── Toast ── -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ── Modal ── -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Article detail">
+    <div class="modal" id="modal">
+      <button class="modal-x" id="modalX" aria-label="Close">✕</button>
+      <div class="modal-hero">
+        <img class="modal-img" id="modalImg" src="" alt=""/>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <span class="modal-src"  id="modalSrc"></span>
+          <span class="modal-sep">·</span>
+          <span class="modal-date" id="modalDate"></span>
+        </div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p  class="modal-desc"  id="modalDesc"></p>
+        <div class="modal-foot">
+          <a  class="btn-read"   id="modalLink" href="#" target="_blank" rel="noopener noreferrer">Read full story →</a>
+          <button class="btn-save" id="modalSave">♡ Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
